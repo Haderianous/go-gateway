@@ -1,4 +1,4 @@
-module newgit.fidibo.com/go/core/gateway
+module github.com/haderianous/go-gateway
 
 go 1.19
 
