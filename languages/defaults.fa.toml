@@ -1,0 +1,32 @@
+[UnAuthorizedError]
+other = "برای دسترسی به این قسمت باید ابتدا وارد شوید."
+
+[ForbiddenError]
+other = "شما اجازه دسترسی به این قسمت را ندارید."
+
+[UnProcessableError]
+other = "اطلاعاتی ارسالی صحیح نمی باشد."
+
+[NotFoundError]
+other = "اطلاعات درخواستی یافت نشد."
+
+[ApplicationIsNotResponsive]
+other = "سرور پاسخگو نیست، لطفا دوباره امتحان کنید."
+
+[InvalidData]
+other = "داده‌ نامعتبر"
+
+[HttpError]
+other = "خطای داخلی سرور"
+
+[InvalidUser]
+other = "کاربر نامعتبر"
+
+[SuccessMessage]
+other = "عملیات با موفقیت انجام شد"
+
+[CreatedMessage]
+other = "موارد درخواستی ایجاد شد"
+
+[UpdatedMessage]
+other = "موارد درخواستی بروزرسانی شد."

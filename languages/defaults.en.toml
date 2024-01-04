@@ -1,0 +1,32 @@
+[UnAuthorizedError]
+other = "You are not authorized."
+
+[ForbiddenError]
+other = "Access to this section is denied."
+
+[UnProcessableError]
+other = "Invalid request information."
+
+[NotFoundError]
+other = "Entity does not exists."
+
+[ApplicationIsNotResponsive]
+other = "The application is not responsive. Please try again."
+
+[InvalidData]
+other = "Invalid given data"
+
+[HttpError]
+other = "Internal Server Error"
+
+[InvalidUser]
+other = "User is not permitted."
+
+[SuccessMessage]
+other = "Operation has been done successfully."
+
+[CreatedMessage]
+other = "Item has been created successfully."
+
+[UpdatedMessage]
+other = "Item has been updated successfully."
