@@ -3,6 +3,7 @@ package gateway
 import (
 	"context"
 	"github.com/gin-gonic/gin"
+	errors "github.com/haderianous/go-error"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"io"
 	"net/http"

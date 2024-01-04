@@ -1,6 +1,7 @@
 package gateway
 
 import (
+	errors "github.com/haderianous/go-error"
 	"net/http"
 )
 
