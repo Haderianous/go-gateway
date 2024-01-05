@@ -2,6 +2,8 @@ package gateway
 
 import (
 	"context"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"github.com/haderianous/go-logger/logger"
 	"net/http"
@@ -12,6 +14,7 @@ type Server interface {
 	NewRouterGroup(path string) RouterGroup
 	Shutdown(timeout time.Duration) error
 	LoadHTMLGlob(pattern string)
+	NewSession(sessionName string, secretKey string)
 	Run(...string) error
 }
 
@@ -39,6 +42,11 @@ func (s *server) Shutdown(timeout time.Duration) error {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 	return s.httpServer.Shutdown(ctx)
+}
+
+func (s *server) NewSession(sessionName string, secretKey string) {
+	store := cookie.NewStore([]byte(secretKey))
+	s.engin.Use(sessions.Sessions(sessionName, store))
 }
 
 func (s *server) LoadHTMLGlob(pattern string) {
