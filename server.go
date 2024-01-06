@@ -19,8 +19,8 @@ type Server interface {
 }
 
 type server struct {
-	engin      *gin.Engine
-	httpServer http.Server // gin engine is inside this server
+	Engine     *gin.Engine
+	httpServer http.Server // gin Engine is inside this server
 	group      *gin.RouterGroup
 	logger     logger.Logger
 	controller Controller
@@ -28,14 +28,14 @@ type server struct {
 
 func NewServer(c Controller) Server {
 	return &server{
-		engin:      gin.New(),
+		Engine:     gin.New(),
 		logger:     logger.NewLogger(logger.InfoLevel, logger.JsonEncoding),
 		controller: c,
 	}
 }
 
 func (s *server) NewRouterGroup(path string) RouterGroup {
-	return newRouterGroup(path, s.engin, s.controller)
+	return newRouterGroup(path, s.Engine, s.controller)
 }
 
 func (s *server) Shutdown(timeout time.Duration) error {
@@ -46,17 +46,17 @@ func (s *server) Shutdown(timeout time.Duration) error {
 
 func (s *server) NewSession(sessionName string, secretKey string) {
 	store := cookie.NewStore([]byte(secretKey))
-	s.engin.Use(sessions.Sessions(sessionName, store))
+	s.Engine.Use(sessions.Sessions(sessionName, store))
 }
 
 func (s *server) LoadHTMLGlob(pattern string) {
-	s.engin.LoadHTMLGlob(pattern)
+	s.Engine.LoadHTMLGlob(pattern)
 }
 
 func (s *server) Run(host ...string) error {
 	s.httpServer = http.Server{
 		Addr:    host[0],
-		Handler: s.engin,
+		Handler: s.Engine,
 	}
 	if gin.IsDebugging() {
 		s.logger.InfoF("Listening and serving HTTP on %s", host[0])
