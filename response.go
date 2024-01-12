@@ -93,7 +93,7 @@ func (r *responder) RespondError(req Request, err errors.ErrorModel) {
 	ctx := req.GetContext().(*gin.Context)
 	_ = ctx.Error(err)
 	if err.ErrorId() != "" && (err.IsMsgDefault() || !err.IsIdDefault()) {
-		err = err.WithMessage(req.GetLanguage().Localize(err.MessageId(), err.Message()))
+		err = err.WithMessage(req.GetMessage())
 		err = err.WithErrorText(req.GetLanguage().Localize(err.ErrorId(), err.ErrorText()))
 	}
 	ctx.JSON(getStatusCodeByError(err.Type()), err)
