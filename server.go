@@ -67,7 +67,3 @@ func (s *server) Run(host ...string) error {
 	}
 	return err
 }
-
-func (s *server) GetGinEngin() gin.Engine {
-	return *s.engine
-}

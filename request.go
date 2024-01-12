@@ -23,6 +23,10 @@ type Request interface {
 	SetLanguage(lang Language)
 	GetLanguage() Language
 
+	GetStatusCode() int
+	SetStatusCode(statusCode int)
+	GetMessage() string
+	SetMessage(msg string)
 	GetBody() any
 	SetBody(any)
 	Request() *http.Request
@@ -45,6 +49,8 @@ type Request interface {
 
 type request struct {
 	context     *gin.Context
+	statusCode  int
+	message     string
 	body        any
 	language    Language
 	paginator   Paginator
@@ -107,6 +113,22 @@ func (r *request) SetLanguage(lang Language) {
 
 func (r *request) GetLanguage() Language {
 	return r.language
+}
+
+func (r *request) GetStatusCode() int {
+	return r.statusCode
+}
+
+func (r *request) SetStatusCode(statusCode int) {
+	r.statusCode = statusCode
+}
+
+func (r *request) GetMessage() string {
+	return r.message
+}
+
+func (r *request) SetMessage(msg string) {
+	r.message = msg
 }
 
 func (r *request) GetBody() any {
