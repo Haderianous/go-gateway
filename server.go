@@ -4,8 +4,10 @@ import (
 	"context"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
+	gormsessions "github.com/gin-contrib/sessions/gorm"
 	"github.com/gin-gonic/gin"
 	"github.com/haderianous/go-logger/logger"
+	"gorm.io/gorm"
 	"net/http"
 	"time"
 )
@@ -15,6 +17,7 @@ type Server interface {
 	Shutdown(timeout time.Duration) error
 	LoadHTMLGlob(pattern string)
 	NewSession(sessionName string, secretKey string)
+	NewGormSession(db *gorm.DB, sessionName string, secretKey string)
 	Run(...string) error
 }
 
@@ -46,6 +49,11 @@ func (s *server) Shutdown(timeout time.Duration) error {
 
 func (s *server) NewSession(sessionName string, secretKey string) {
 	store := cookie.NewStore([]byte(secretKey))
+	s.engine.Use(sessions.Sessions(sessionName, store))
+}
+
+func (s *server) NewGormSession(db *gorm.DB, sessionName string, secretKey string) {
+	store := gormsessions.NewStore(db, true, []byte("secretKey"))
 	s.engine.Use(sessions.Sessions(sessionName, store))
 }
 
