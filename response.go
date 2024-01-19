@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/haderianous/go-error"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
-	"net/http"
 	"time"
 )
 
@@ -55,9 +54,15 @@ func (r *responder) Respond(req Request, result any) {
 		},
 	}
 
-	if req.GetMethod() == http.MethodPut || req.GetMethod() == http.MethodPost {
+	if result == nil {
+		response.Data.Result = []any{}
+	} else {
 		response.Data.Result = []any{result}
 	}
+
+	//if req.GetMethod() == http.MethodPut || req.GetMethod() == http.MethodPost {
+	//	response.Data.Result = []any{result}
+	//}
 
 	//var status int
 	//switch req.GetMethod() {
