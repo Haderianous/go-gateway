@@ -91,10 +91,6 @@ func (r *responder) Respond(req Request, result any) {
 	//	status = http.StatusOK
 	//}
 
-	req.Writer().Header().Set("Access-Control-Allow-Origin", "*")
-	req.Writer().Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
-	req.Writer().Header().Set("Access-Control-Allow-Headers", "Content-Type")
-
 	req.GetContext().(*gin.Context).JSON(req.GetStatusCode(), response)
 	return
 }
