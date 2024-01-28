@@ -18,7 +18,7 @@ type Server interface {
 	Shutdown(timeout time.Duration) error
 	LoadHTMLGlob(pattern string)
 	NewSession(sessionName string, secretKey string)
-	NewCorsMiddleware()
+	HandleCorsMiddleware(allowedOrigin string)
 	NewGormSession(db *gorm.DB, sessionName string, secretKey string)
 	Run(...string) error
 }
@@ -59,9 +59,9 @@ func (s *server) NewGormSession(db *gorm.DB, sessionName string, secretKey strin
 	s.engine.Use(sessions.Sessions(sessionName, store))
 }
 
-func (s *server) NewCorsMiddleware() {
+func (s *server) HandleCorsMiddleware(allowedOrigin string) {
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"*"}                                        // Specify allowed origins
+	config.AllowOrigins = []string{allowedOrigin}                              // Specify allowed origins
 	config.AllowMethods = []string{"GET", "POST", "OPTIONS"}                   // Specify allowed HTTP methods
 	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type"} // Specify allowed headers
 	s.engine.Use(cors.New(config))
