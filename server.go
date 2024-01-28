@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"context"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	gormsessions "github.com/gin-contrib/sessions/gorm"
@@ -17,6 +18,7 @@ type Server interface {
 	Shutdown(timeout time.Duration) error
 	LoadHTMLGlob(pattern string)
 	NewSession(sessionName string, secretKey string)
+	NewCorsMiddleware()
 	NewGormSession(db *gorm.DB, sessionName string, secretKey string)
 	Run(...string) error
 }
@@ -55,6 +57,14 @@ func (s *server) NewSession(sessionName string, secretKey string) {
 func (s *server) NewGormSession(db *gorm.DB, sessionName string, secretKey string) {
 	store := gormsessions.NewStore(db, true, []byte("secretKey"))
 	s.engine.Use(sessions.Sessions(sessionName, store))
+}
+
+func (s *server) NewCorsMiddleware() {
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"*"}                                        // Specify allowed origins
+	config.AllowMethods = []string{"GET", "POST", "OPTIONS"}                   // Specify allowed HTTP methods
+	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type"} // Specify allowed headers
+	s.engine.Use(cors.New(config))
 }
 
 func (s *server) LoadHTMLGlob(pattern string) {

@@ -90,6 +90,7 @@ func (r *responder) Respond(req Request, result any) {
 	//	}
 	//	status = http.StatusOK
 	//}
+
 	req.GetContext().(*gin.Context).JSON(req.GetStatusCode(), response)
 	return
 }
