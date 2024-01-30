@@ -55,7 +55,7 @@ func (s *server) NewSession(sessionName string, secretKey string) {
 }
 
 func (s *server) NewGormSession(db *gorm.DB, sessionName string, secretKey string) {
-	store := gormsessions.NewStore(db, true, []byte("secretKey"))
+	store := gormsessions.NewStore(db, true, []byte(secretKey))
 	s.engine.Use(sessions.Sessions(sessionName, store))
 }
 
