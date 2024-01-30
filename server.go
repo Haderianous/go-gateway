@@ -19,7 +19,7 @@ type Server interface {
 	LoadHTMLGlob(pattern string)
 	NewSession(sessionName string, secretKey string)
 	HandleCorsMiddleware(allowedOrigin string)
-	NewGormSession(db *gorm.DB, sessionName string, secretKey string)
+	NewGormSession(db *gorm.DB, sessionName string, domain string, expired int, secretKey string)
 	Run(...string) error
 }
 
