@@ -54,8 +54,16 @@ func (s *server) NewSession(sessionName string, secretKey string) {
 	s.engine.Use(sessions.Sessions(sessionName, store))
 }
 
-func (s *server) NewGormSession(db *gorm.DB, sessionName string, secretKey string) {
+func (s *server) NewGormSession(db *gorm.DB, sessionName string, domain string, expired int, secretKey string) {
 	store := gormsessions.NewStore(db, true, []byte(secretKey))
+	store.Options(sessions.Options{
+		Domain: domain,
+		Path:   "/",     // The path where the cookie is available
+		MaxAge: expired, // MaxAge of cookie (in seconds), 0 means no expiry
+		//HttpOnly: true,         // HTTP only cookie
+		//Secure:   true,         // Cookie only sent over HTTPS
+		SameSite: http.SameSiteStrictMode, // SameSite attribute
+	})
 	s.engine.Use(sessions.Sessions(sessionName, store))
 }
 
