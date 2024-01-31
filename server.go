@@ -72,6 +72,7 @@ func (s *server) HandleCorsMiddleware(allowedOrigin string) {
 	config.AllowOrigins = []string{allowedOrigin}                              // Specify allowed origins
 	config.AllowMethods = []string{"GET", "POST", "OPTIONS"}                   // Specify allowed HTTP methods
 	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type"} // Specify allowed headers
+	config.AllowCredentials = true
 	s.engine.Use(cors.New(config))
 }
 
