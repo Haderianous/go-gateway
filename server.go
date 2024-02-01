@@ -18,7 +18,7 @@ type Server interface {
 	Shutdown(timeout time.Duration) error
 	LoadHTMLGlob(pattern string)
 	NewSession(sessionName string, secretKey string)
-	HandleCorsMiddleware(allowedOrigin string)
+	HandleCorsMiddleware(allowedOrigins []string)
 	NewGormSession(db *gorm.DB, sessionName string, domain string, expired int, secretKey string)
 	Run(...string) error
 }
