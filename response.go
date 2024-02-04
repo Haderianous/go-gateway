@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/haderianous/go-error"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
+	"reflect"
 	"time"
 )
 
@@ -56,6 +57,8 @@ func (r *responder) Respond(req Request, result any) {
 
 	if result == nil {
 		response.Data.Result = []any{}
+	} else if reflect.TypeOf(result).Kind() == reflect.Slice {
+		response.Data.Result = result
 	} else {
 		response.Data.Result = []any{result}
 	}
