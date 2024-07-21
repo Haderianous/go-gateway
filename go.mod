@@ -6,7 +6,7 @@ require (
 	github.com/gin-contrib/cors v1.5.0
 	github.com/gin-contrib/sessions v0.0.5
 	github.com/gin-gonic/gin v1.9.1
-	github.com/haderianous/go-error v1.0.2
+	github.com/haderianous/go-error v1.0.3
 	github.com/haderianous/go-logger v0.0.0-20240104104946-195862bdab3d
 	github.com/nicksnyder/go-i18n/v2 v2.2.1
 	github.com/stretchr/testify v1.8.4

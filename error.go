@@ -21,6 +21,8 @@ func getStatusCodeByError(typ errors.Type) int {
 		return http.StatusUnprocessableEntity
 	case errors.TypeBadRequest:
 		return http.StatusBadRequest
+	case errors.TypeConflict:
+		return http.StatusConflict
 	case errors.TypeAccepted:
 		return http.StatusAccepted
 	}

@@ -54,8 +54,8 @@ github.com/gorilla/securecookie v1.1.1 h1:miw7JPhV+b/lAHSXz4qd/nN9jRiAFV5FwjeKyC
 github.com/gorilla/securecookie v1.1.1/go.mod h1:ra0sb63/xPlUeL+yeDciTfxMRAA+MP+HVt/4epWDjd4=
 github.com/gorilla/sessions v1.2.1 h1:DHd3rPN5lE3Ts3D8rKkQ8x/0kqfeNmBAaiSi+o7FsgI=
 github.com/gorilla/sessions v1.2.1/go.mod h1:dk2InVEVJ0sfLlnXv9EAgkf6ecYs/i80K/zI+bUmuGM=
-github.com/haderianous/go-error v1.0.2 h1:J/GOPSa2+EWjc3k78kIeTABireRmCd+07kKgbVJj0P8=
-github.com/haderianous/go-error v1.0.2/go.mod h1:vez8Hj7KdgGJhGjDFO0Tu8Ysee+0PIKMdQkbBhMYHY8=
+github.com/haderianous/go-error v1.0.3 h1:87I+KFkpVsxnhF0VmqL4g0F/qHetmuixvXMoWoSB0iM=
+github.com/haderianous/go-error v1.0.3/go.mod h1:vez8Hj7KdgGJhGjDFO0Tu8Ysee+0PIKMdQkbBhMYHY8=
 github.com/haderianous/go-logger v0.0.0-20240104104946-195862bdab3d h1:QAK8HwBNvWVtELWKKgt/ZMaxXB8YyvFlWW9IKo9WuzA=
 github.com/haderianous/go-logger v0.0.0-20240104104946-195862bdab3d/go.mod h1:dSTHLNNqQwj31kT8C3MNh0mHU3H/CfYye1XyYj5QWNo=
 github.com/jackc/chunkreader v1.0.0 h1:4s39bBR8ByfqH+DKm8rQA3E1LHZWB9XWcrz8fqaZbe0=
