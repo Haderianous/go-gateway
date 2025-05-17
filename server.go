@@ -69,9 +69,9 @@ func (s *server) NewGormSession(db *gorm.DB, sessionName string, domain string, 
 
 func (s *server) HandleCorsMiddleware(allowedOrigins []string) {
 	config := cors.DefaultConfig()
-	config.AllowOrigins = allowedOrigins                                               // Specify allowed origins
-	config.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"} // Specify allowed HTTP methods
-	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type"}         // Specify allowed headers
+	config.AllowOrigins = allowedOrigins                                                      // Specify allowed origins
+	config.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}        // Specify allowed HTTP methods
+	config.AllowHeaders = []string{"Origin", "Content-Length", "Authorization, Content-Type"} // Specify allowed headers
 	config.AllowCredentials = true
 	s.engine.Use(cors.New(config))
 }
