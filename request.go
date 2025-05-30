@@ -160,6 +160,10 @@ func (r *request) BindRequest(req Validatable) (err errors.ErrorModel) {
 	if e != nil {
 		return errors.DefaultUnProcessable.WithError(e)
 	}
+	e = r.context.ShouldBindQuery(req)
+	if e != nil {
+		return errors.DefaultUnProcessable.WithError(e)
+	}
 	e = r.context.ShouldBind(req)
 	if e != nil && e != io.EOF {
 		return errors.DefaultUnProcessable.WithError(e)
