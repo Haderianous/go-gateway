@@ -17,6 +17,7 @@ type Server interface {
 	NewRouterGroup(path string) RouterGroup
 	Shutdown(timeout time.Duration) error
 	LoadHTMLGlob(pattern string)
+	GetEngine() *gin.Engine
 	NewSession(sessionName string, secretKey string)
 	HandleCorsMiddleware(allowedOrigins []string)
 	NewGormSession(db *gorm.DB, sessionName string, domain string, expired int, secretKey string)
@@ -37,6 +38,10 @@ func NewServer(c Controller) Server {
 		logger:     logger.NewLogger(logger.InfoLevel, logger.JsonEncoding),
 		controller: c,
 	}
+}
+
+func (s *server) GetEngine() *gin.Engine {
+	return s.engine
 }
 
 func (s *server) NewRouterGroup(path string) RouterGroup {
