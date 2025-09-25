@@ -2,14 +2,18 @@ package gateway
 
 import (
 	"context"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	errors "github.com/haderianous/go-error"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
+	ptime "github.com/yaa110/go-persian-calendar"
 	"io"
 	"net/http"
 	"net/url"
+	"slices"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Request interface {
@@ -38,6 +42,7 @@ type Request interface {
 	GetParam(key string) string
 	Filters() FilterParams
 	BindFilters() errors.ErrorModel
+	ConvertDateFiltersTo(keys []string, direction string) errors.ErrorModel
 	SetIsResponded(bool)
 	IsResponded() bool
 	Next()
@@ -256,6 +261,64 @@ func (r *request) BindFilters() errors.ErrorModel {
 		Limit:   r.Paginator().PerPage(),
 	}
 	return nil
+}
+
+func (r *request) ConvertDateFiltersTo(keys []string, direction string) errors.ErrorModel {
+	var err error
+	var date string
+	for i, f := range r.filters.Filters {
+		if slices.Contains(keys, f.Key) {
+			for j, v := range f.Value {
+				switch direction {
+				case "miladi":
+					date, err = convertToMiladi(v.(string))
+				case "shamsi":
+					date, err = convertToShamsi(v.(string))
+				default:
+					date = ""
+					err = fmt.Errorf("invalid conversion direction")
+				}
+				if err != nil {
+					return errors.DefaultUnProcessable.WithError(err)
+				}
+				if err == nil {
+					r.filters.Filters[i].Value[j] = date
+				}
+			}
+		}
+	}
+	return nil
+}
+
+// convertToMiladi converts Shamsi -> Miladi string
+func convertToMiladi(shamsiDate string) (string, error) {
+	t, err := time.Parse("2006-01-02", shamsiDate)
+	if err != nil {
+		return "", fmt.Errorf("invalid format, expected YYYY-MM-DD")
+	}
+	return ptime.Date(
+		t.Year(),
+		ptime.Month(t.Month()),
+		t.Day(),
+		t.Hour(),
+		t.Minute(),
+		t.Second(),
+		0,
+		time.UTC,
+	).Time().Format("2006-01-02"), nil
+}
+
+// convertToShamsi converts Miladi -> Shamsi string
+func convertToShamsi(miladiDate string) (string, error) {
+	if miladiDate == "" {
+		return "", nil
+	}
+	t, err := time.Parse("2006-01-02", miladiDate)
+	if err != nil {
+		return "", err
+	}
+	pt := ptime.New(t)
+	return fmt.Sprintf("%04d-%02d-%02d", pt.Year(), pt.Month(), pt.Day()), nil
 }
 
 func fillSortsByEntity(spCollection []string, sStr string) (sorts []Sort) {
